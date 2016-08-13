@@ -15,13 +15,16 @@
         var objB = {
             init: function () {
                 objA.initSignal.add(this.onObjAInited, this)
+                objA.initSignal.add(this.onObjAInited, this)
+                objA.initSignal.add(this.onObjAInited, this)
+                objA.initSignal.remove(this.onObjAInited)
             },
             onObjAInited: function (args) {
                 console.log(args);
             }
         };
 
-        objB.init() ;
+        objB.init();
         objA.init();
 
     </script>

@@ -39,13 +39,25 @@
       });
     };
 
-    Signal.prototype.remove = function() {};
+    Signal.prototype.remove = function(fn) {
+      var i, results;
+      results = [];
+      for (i in this.map) {
+        if (this.map[i].fn === fn) {
+          this.map.splice(i, 1);
+          results.push(this.remove(fn));
+        } else {
+          results.push(void 0);
+        }
+      }
+      return results;
+    };
 
     Signal.prototype.dispatch = function() {
-      var addOnce, destroy, fn, i, len, obj, ref, scope;
+      var addOnce, destroy, fn, j, len, obj, ref, scope;
       ref = this.map;
-      for (i = 0, len = ref.length; i < len; i++) {
-        obj = ref[i];
+      for (j = 0, len = ref.length; j < len; j++) {
+        obj = ref[j];
         fn = obj.fn;
         scope = obj.scope;
         addOnce = obj.addOnce;

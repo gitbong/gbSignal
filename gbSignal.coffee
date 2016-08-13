@@ -22,7 +22,11 @@ class Signal
 			addOnce: true,
 			destroy: false
 		)
-	remove: ->
+	remove: (fn) ->
+		for i of @map
+			if @map[i].fn is fn
+				@map.splice(i, 1)
+				@remove(fn)
 
 	dispatch: ->
 		for obj in @map
